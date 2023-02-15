@@ -1,0 +1,8 @@
+
+
+
+Data:
+  Dataset:
+    name: MNIST
+    normalize: MinMaxScaler
+    miss_rate: 0.3
