@@ -1,8 +1,28 @@
-
-
+Global:
+  pretrained_model: null
+  pretrain_epochs: 200
+  output: ./output
+  epochs: 200
 
 Data:
   Dataset:
     name: MNIST
     normalize: MinMaxScaler
     miss_rate: 0.1
+    root_path: ./dataset
+
+Arch:
+  name: AutoEncoder
+  encoder:
+    dims:
+      - [784, 64]
+      - [256, 64]
+    activate: ReLU
+  decoder:
+    pre_bn: 64
+    pre_activate: ReLU
+    dims:
+      - [64, 784]
+      - [64, 256]
+    activate: ReLU
+    
