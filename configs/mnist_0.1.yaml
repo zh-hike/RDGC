@@ -26,3 +26,5 @@ Arch:
       - [64, 256]
     activate: ReLU
     
+Metric:
+  - Accuracy:
