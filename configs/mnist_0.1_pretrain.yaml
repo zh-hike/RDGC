@@ -3,6 +3,8 @@ Global:
   pretrain_epochs: 200
   output: ./output/mnist_0.1
   epochs: 200
+  num_classes: &num_classes 10
+  eval_interval: -1
 
 Data:
   Dataset:

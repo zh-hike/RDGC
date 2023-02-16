@@ -59,4 +59,4 @@ class AutoEncoder(nn.Module):
         mz = [z for _ in xs]
         fusion2recon = self.dec(mz)
         out = self.dec(latent)
-        return out, fusion2recon, latent
+        return out, fusion2recon, latent, z

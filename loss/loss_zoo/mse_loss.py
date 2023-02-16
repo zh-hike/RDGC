@@ -6,7 +6,7 @@ class MSELoss:
     def __init__(self):
         self.func = nn.MSELoss(reduction=None, reduce=False)
 
-    def __call__(self, preds: list, reals: list,  miss_matrixs: list, fusion2recon: list = None):
+    def __call__(self, preds: list, reals: list,  miss_matrixs: list, fusion2recon: list = None, **kwargs):
         loss = 0
         for pred, fusion2x, real, mask in zip(preds, fusion2recon, reals, miss_matrixs):
             cur_loss = self.func(pred, real) * mask

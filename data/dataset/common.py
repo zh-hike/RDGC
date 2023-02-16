@@ -8,19 +8,20 @@ class CommonDataset(Dataset):
         self.root_path = root_path
         self.normalize = normalize
         self.X = []
-        self.miss_matrix = get_missmatrix(miss_rate, num_view, num_sample)
+        self.miss_matrix = get_missmatrix(miss_rate, num_view, 2000) # num_sample
         self.y = None
 
     def prepare(self):
         self._load_data()
         for i in range(len(self.X)):
             assert isinstance(self.X[i], np.ndarray)
-            self.X[i] = self.X[i].astype('float32')
+            self.X[i] = self.X[i].astype('float32')[:2000]
             self.X[i] = self.X[i] * self.miss_matrix[i]
         assert isinstance(self.y, np.ndarray)
 
         self.X = data_preprocess(self.X, self.normalize)
         self.y = self.y - self.y.min()
+        self.y = self.y[:2000]
 
     @abstractmethod
     def _load_data(self):

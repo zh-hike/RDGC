@@ -3,6 +3,8 @@ Global:
   pretrain_epochs: 200
   output: ./output/mnist_0.1
   epochs: 200
+  num_classes: &num_classes 10
+  eval_interval: 50
 
 Data:
   Dataset:
@@ -38,6 +40,15 @@ Arch:
 Loss:
   - MSELoss:
       weight: 1
+  - CtrLoss:
+      weight: 1
+      sigma: 0.7
+      taup: 0.8
+      taus: 0.8
+      num_classes: *num_classes
+  - RINCELoss:
+      weight: 1
+
 
 Optimizer:
   name: Adam
