@@ -15,6 +15,7 @@ Data:
     num_view: 2
     num_sample: 10000
 ```
+* [MNIST下载](https://drive.google.com/file/d/10WiQL30NO6NFHiARFAeEXDBFmG75o6Jx/view?usp=sharing)
 
 ## 用法
 ### pretrain
