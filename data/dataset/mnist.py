@@ -1,34 +1,14 @@
-from torch.utils.data import Dataset
-import numpy as np
+from .common import CommonDataset
+import os
+import scipy.io as io
 
-class MNIST(Dataset):
-    def __init__(self, 
-                    miss_rate=0.1,
-                    normalize="MinMaxScaler"):
-        self.X = []    # list  [nxd1, nxd2, ,,,,, nxdv]
-        self.y = None    # np.ndarray
-        self.miss_matrix = None   # np.ndarray,   vxn
-
-        self.check()
-
-    def check(self):
-        assert isinstance(self.X, list)
-        assert isinstance(self.y, np.ndarray)
-        self.y = self.y.astype('int64')
-        assert isinstance(self.miss_matrix, (list, np.ndarray))
-        assert len(self.X) == len(self.miss_matrix)
-        for i in range(len(self.X)):
-            assert isinstance(self.X[i], np.ndarray)
-            assert self.X[i].shape[0] == self.y.shape[0]
-            self.X[i] = self.X[i].astype('float32')
-            assert isinstance(self.miss_matrix[i], np.ndarray)
-
-
-       
-
-    def __getitem__(self, idx):
-        return [x[idx] for x in self.X], self.y[idx], [miss[idx] for miss in self.miss_matrix]
+class MNIST(CommonDataset):
+    def __init__(self, root_path, normalize, miss_rate, num_view, num_sample):
+        super(MNIST, self).__init__(root_path, normalize, miss_rate, num_view, num_sample)
+        self.prepare()
     
-
-    def __len__(self):
-        return self.X[0].shape[0]
+    def _load_data(self):
+        path = os.path.join(self.root_path, 'mnist.mat')
+        data = io.loadmat(path)
+        self.X = [x.T.astype('float32') for x in data['X'][0]]
+        self.y = data['truth'].squeeze().astype('int64')

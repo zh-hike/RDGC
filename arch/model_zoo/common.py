@@ -1,5 +1,5 @@
 import torch.nn as nn
-from torch.nn import ReLU, Sigmoid
+from torch.nn import ReLU, Sigmoid, Softmax
 import torch
 
 class LinearBNReLU(nn.Module):

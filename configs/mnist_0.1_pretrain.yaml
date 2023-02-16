@@ -1,7 +1,7 @@
 Global:
   pretrained_model: null
   pretrain_epochs: 200
-  output: ./output
+  output: ./output/mnist_0.1
   epochs: 200
 
 Data:
@@ -9,7 +9,14 @@ Data:
     name: MNIST
     normalize: MinMaxScaler
     miss_rate: 0.1
-    root_path: ./dataset
+    root_path: ../dataset
+    num_view: 2
+    num_sample: 10000
+  
+  DataLoader:
+    batch_size: 100000
+    sampler:
+      name: RandomSampler
 
 Arch:
   name: AutoEncoder
@@ -25,6 +32,16 @@ Arch:
       - [64, 784]
       - [64, 256]
     activate: ReLU
+  fusion:
+    dims: [128, 2]
     
+Loss:
+  - MSELoss:
+      weight: 1
+
+Optimizer:
+  name: Adam
+  lr: 0.0005
+
 Metric:
   - Accuracy:
